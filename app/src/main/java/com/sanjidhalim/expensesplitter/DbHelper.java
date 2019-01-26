@@ -48,9 +48,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS trips");
-        db.execSQL("DROP TABLE IF EXISTS expenses");
-        onCreate(db);
+        //db.execSQL("DROP TABLE IF EXISTS trips");
+        //db.execSQL("DROP TABLE IF EXISTS expenses");
+        //onCreate(db);
     }
 
     public void insertTrip(String tripName, String[] participants){
@@ -123,7 +123,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public void deleteExpense(String tripName,String expenseName){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("delete from expenses where tripname='"+tripName+"'" +
-                " and expenseName='"+expenseName+"'");
+        db.execSQL("delete from expenses where tripname='" + tripName + "'" +
+                " and expenseName='" + expenseName + "'");
+    }
+
+    public void deleteTripAndExpenses(String tripName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("delete from expenses where tripname='"+tripName+"'");
+        db.execSQL("delete from trips where tripname='"+tripName+"'");
     }
 }
